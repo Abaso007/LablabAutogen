@@ -119,23 +119,23 @@ Reply TERMINATE when the task is done.
         functions = []
         sk_functions = self.kernel.skills.get_functions_view()
         for ns in {**sk_functions.native_functions, **sk_functions.semantic_functions}:
-            for f in sk_functions.native_functions[ns]:
-                functions.append(
-                    {
-                        "name": f.name,
-                        "description": f.description,
-                        "parameters": {
-                            "type": "object",
-                            "properties": {
-                                f.parameters[0].name: {
-                                    "description": f.parameters[0].description,
-                                    "type": f.parameters[0].type_,
-                                }
-                            },
-                            "required": [f.parameters[0].name],
+            functions.extend(
+                {
+                    "name": f.name,
+                    "description": f.description,
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            f.parameters[0].name: {
+                                "description": f.parameters[0].description,
+                                "type": f.parameters[0].type_,
+                            }
                         },
-                    }
-                )
+                        "required": [f.parameters[0].name],
+                    },
+                }
+                for f in sk_functions.native_functions[ns]
+            )
         return functions
 
     def __get_function_map(self) -> Dict:
