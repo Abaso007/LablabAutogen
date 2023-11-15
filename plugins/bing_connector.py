@@ -106,7 +106,4 @@ class BingConnector(ConnectorBase):
 
         async with aiohttp.ClientSession() as session:
             async with session.get(_request_url, headers=headers, raise_for_status=True) as response:
-                if response.status == 200:
-                    return await response.json()
-                else:
-                    return None
+                return await response.json() if response.status == 200 else None
