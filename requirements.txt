@@ -7,7 +7,7 @@ azure-common
 azure-core
 azure-search-documents
 azure-cognitiveservices-search-websearch
-pyautogen
+ag2
 semantic-kernel==0.3.14.dev0
 microsoft-bing-websearch
 microsoft-bing-visualsearch
